@@ -12,7 +12,8 @@ This function pings mutiple IP address and returns status of each.  Test-NetConn
 
 .EXAMPLE
 $ipAddressList = @("8.8.8.8", 0.0.0.0, 1.1.1.1)
-.\Test-MultipleConnections.ps1 -ipAddressList $ipAddressList
+IN PS TERMINAL: & .\Test-MultipleConnections.ps1 -ipAddressList $ipAddressList
+IN VSCODE:      .\Test-MultipleConnections.ps1 -ipAddressList $ipAddressList
 or
 .\Test-MultipleConnections.ps1 -ipAddressList "8.8.8.8", "0.0.0.0", "1.1.1.1"
 or
@@ -29,7 +30,6 @@ Example IP addresses:
 192.0.2.0 This address is reserved for documentation and should not be assigned to any device, so pinging it should result in a failure.
 #>
 
-# Todo: Figure out how to run this from a terminal instead of only running it in VSCode.  It's not working in the terminal and I've spent too long trying to figure it out.  Do it tomorrow.
 function Test-MultipleConnections {
     foreach ($ipAddress in $ipAddressList) {
         $result = Test-Ping -ipAddress $ipAddress
@@ -72,3 +72,5 @@ if (($null -eq $ipAddressList) -or ($ipAddressList -eq "")) {
     Write-Output "No IP address provided, using defaults, '8.8.8.8', '1.1.1.1', '208.67.222.222', '4.2.2.1'"
     $ipAddressList = @('8.8.8.8', '1.1.1.1', '208.67.222.222', '4.2.2.1')
 }
+
+Test-MultipleConnections -ipAddressList $ipAddressList -TimeoutMilliseconds $TimeoutMilliseconds
